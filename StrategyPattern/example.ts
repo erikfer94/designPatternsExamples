@@ -129,12 +129,11 @@ class PatoMadera extends Pato {
 
 }
 
-const unPatoSalvaje = new PatoSalvaje()
-const unPatoHule = new PatoHule()
-const unPatoMadera = new PatoMadera()
+//Creamos a los objetos pato.
 
 //Pato Salvaje
 console.log("Pato Salvaje")
+const unPatoSalvaje = new PatoSalvaje()
 unPatoSalvaje.display(); //Hola estoy en una montaña
 unPatoSalvaje.performFly(); //vuela como pato
 unPatoSalvaje.performCuack(); //cuack
@@ -142,6 +141,7 @@ unPatoSalvaje.swim(); //Todos los patos pueden flotar
 
 //Pato Hule
 console.log("Pato Hule")
+const unPatoHule = new PatoHule()
 unPatoHule.display(); //Hola estoy en una tina
 unPatoHule.performFly(); //no vuela
 unPatoHule.performCuack(); //squeak
@@ -149,6 +149,7 @@ unPatoHule.swim(); //Todos los patos pueden flotar
 
 //Pato Madera
 console.log("Pato Madera")
+const unPatoMadera = new PatoMadera()
 unPatoMadera.display(); //Hola soy un adorno
 unPatoMadera.performFly(); //no vuela
 unPatoMadera.performCuack(); //*silencio
