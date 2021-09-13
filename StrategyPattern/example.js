@@ -1,14 +1,29 @@
 //STRATEGY PATTERN
-//Creamos una clase que implemente la interface IFlyBehavior
-var PatoFlyBehavior = /** @class */ (function () {
-    function PatoFlyBehavior() {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+//Definimos una clase que implemente la interface IFlyBehavior
+var FlyWithWingsBehavior = /** @class */ (function () {
+    function FlyWithWingsBehavior() {
         this.fly = function () {
             console.log("vuela como pato");
         };
     }
-    return PatoFlyBehavior;
+    return FlyWithWingsBehavior;
 }());
-//Creamos otra clase que implemente la interface IFlyBehavior
+//Definimos otra clase que implemente la interface IFlyBehavior
 var NoFlyBehavior = /** @class */ (function () {
     function NoFlyBehavior() {
         this.fly = function () {
@@ -17,47 +32,121 @@ var NoFlyBehavior = /** @class */ (function () {
     }
     return NoFlyBehavior;
 }());
-//Creamos otra clase que implemente la interface ICuackBehavior
-var NoCuackBehavior = /** @class */ (function () {
-    function NoCuackBehavior() {
+//Definimos una clase que implemente la interface ICuackBehavior
+var CuackBehavior = /** @class */ (function () {
+    function CuackBehavior() {
         this.cuack = function () {
-            console.log("no hace cuack :(");
+            console.log("cuack!!");
         };
     }
-    return NoCuackBehavior;
+    return CuackBehavior;
 }());
-//Definimos a la clase pato
-var Pato = /** @class */ (function () {
-    function Pato(flyBehavior, cuackBehavior) {
-        var _this = this;
-        this.display = function () {
-            console.log("aqui se ve el pato");
+//Definimos otra clase que implemente la interface ICuackBehavior
+var SqueakBehavior = /** @class */ (function () {
+    function SqueakBehavior() {
+        this.cuack = function () {
+            console.log("Squeak!!");
         };
-        this.fly = function () {
+    }
+    return SqueakBehavior;
+}());
+//Definimos otra clase que implemente la interface ICuackBehavior
+var MuteCuackBehavior = /** @class */ (function () {
+    function MuteCuackBehavior() {
+        this.cuack = function () {
+            console.log("*silencio*");
+        };
+    }
+    return MuteCuackBehavior;
+}());
+//Definimos a la clase abstracta pato
+var Pato = /** @class */ (function () {
+    function Pato() {
+        var _this = this;
+        this.performFly = function () {
             //Se invoca la funcion fly del behaivior que se paso en el constructor
             _this.flyBehavior.fly();
         };
-        this.cuack = function () {
+        this.performCuack = function () {
             //Se invoca la funcion cuack del behaivior que se paso en el constructor
             _this.cuackBehavior.cuack();
         };
-        //Asignamos los valores de las implementaciones concretas de cada Behavios que construimos
-        this.flyBehavior = flyBehavior;
-        this.cuackBehavior = cuackBehavior;
+        this.swim = function () {
+            console.log("Todos los patos pueden flotar");
+        };
     }
     return Pato;
 }());
 //IMPLEMENTACION
-/** Creamoe al pato de montaña conmo un pato con
-  * PatoFlyBehavior y NoCuackBehavior
+/** Definimos la clase PatoSalvaje con
+  * FlyWithWingsBehavior y CuackBehavior
   */
-var patoMontana = new Pato(new PatoFlyBehavior, new NoCuackBehavior);
-/** Creamos al pato maco conmo un pato con
-  * NoFlyBehavior y NoCuackBehavior
+var PatoSalvaje = /** @class */ (function (_super) {
+    __extends(PatoSalvaje, _super);
+    function PatoSalvaje() {
+        var _this = _super.call(this) || this;
+        _this.display = function () {
+            console.log("Hola estoy en una montaña");
+        };
+        //Asignamos los valores de las implementaciones concretas de cada Behavior
+        _this.flyBehavior = new FlyWithWingsBehavior();
+        _this.cuackBehavior = new CuackBehavior();
+        return _this;
+    }
+    return PatoSalvaje;
+}(Pato));
+/** Definimos la clase PatoHule con
+  * NoFlyBehavior y SqueakBehavior
   */
-var patoManco = new Pato(new NoFlyBehavior, new NoCuackBehavior);
-patoMontana.display(); //aqui se ve el pato
-patoMontana.fly(); //vuela como pato
-patoMontana.cuack(); //no hace cuack :(
-patoManco.fly(); // no vuela :(
-patoManco.cuack(); // no hace cuack :(
+var PatoHule = /** @class */ (function (_super) {
+    __extends(PatoHule, _super);
+    function PatoHule() {
+        var _this = _super.call(this) || this;
+        _this.display = function () {
+            console.log("Hola estoy en una tina");
+        };
+        //Asignamos los valores de las implementaciones concretas de cada Behavior
+        _this.flyBehavior = new NoFlyBehavior();
+        _this.cuackBehavior = new SqueakBehavior();
+        return _this;
+    }
+    return PatoHule;
+}(Pato));
+/** Definimos la clase PatoMadera con
+  * NoFlyBehavior y MuteCuackBehavior
+  */
+var PatoMadera = /** @class */ (function (_super) {
+    __extends(PatoMadera, _super);
+    function PatoMadera() {
+        var _this = _super.call(this) || this;
+        _this.display = function () {
+            console.log("Hola soy un adorno");
+        };
+        //Asignamos los valores de las implementaciones concretas de cada Behavior
+        _this.flyBehavior = new NoFlyBehavior();
+        _this.cuackBehavior = new MuteCuackBehavior();
+        return _this;
+    }
+    return PatoMadera;
+}(Pato));
+var unPatoSalvaje = new PatoSalvaje();
+var unPatoHule = new PatoHule();
+var unPatoMadera = new PatoMadera();
+//Pato Salvaje
+console.log("Pato Salvaje");
+unPatoSalvaje.display(); //Hola estoy en una montaña
+unPatoSalvaje.performFly(); //vuela como pato
+unPatoSalvaje.performCuack(); //cuack
+unPatoSalvaje.swim(); //Todos los patos pueden flotar
+//Pato Hule
+console.log("Pato Hule");
+unPatoHule.display(); //Hola estoy en una tina
+unPatoHule.performFly(); //no vuela
+unPatoHule.performCuack(); //squeak
+unPatoHule.swim(); //Todos los patos pueden flotar
+//Pato Madera
+console.log("Pato Madera");
+unPatoMadera.display(); //Hola soy un adorno
+unPatoMadera.performFly(); //no vuela
+unPatoMadera.performCuack(); //*silencio
+unPatoMadera.swim(); //Todos los patos pueden flotar

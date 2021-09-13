@@ -1,3 +1,4 @@
+//DECORATOR PATTERN
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -73,3 +74,5 @@ var LecheSoya = /** @class */ (function (_super) {
   */
 var bebida = new Grande(new LecheSoya(new Espresso()));
 console.log("El costo es: " + bebida.cost()); //El costo es 70 ((25 + 10) * 2)
+var bebidaDeLaBren = new LecheSoya(new Grande(new Espresso()));
+console.log("El costo es: " + bebidaDeLaBren.cost()); //El costo es 60 ( 25 * 2 + 10 )

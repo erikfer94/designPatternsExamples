@@ -76,7 +76,7 @@ var reciever = new Reciever(100);
 /**
   * Creamos un objeto control y pasamos los comandos que usaremos
   */
-var control = new Control(new AddCommand(reciever), new MultCommand(reciever));
+var control = new Control(new MultCommand(reciever), new AddCommand(reciever));
 console.log(reciever.posicion);
 control.pressAdd();
 console.log(reciever.posicion);
