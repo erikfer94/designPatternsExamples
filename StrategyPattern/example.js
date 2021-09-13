@@ -129,23 +129,24 @@ var PatoMadera = /** @class */ (function (_super) {
     }
     return PatoMadera;
 }(Pato));
-var unPatoSalvaje = new PatoSalvaje();
-var unPatoHule = new PatoHule();
-var unPatoMadera = new PatoMadera();
+//Creamos a los objetos pato.
 //Pato Salvaje
 console.log("Pato Salvaje");
+var unPatoSalvaje = new PatoSalvaje();
 unPatoSalvaje.display(); //Hola estoy en una montaña
 unPatoSalvaje.performFly(); //vuela como pato
 unPatoSalvaje.performCuack(); //cuack
 unPatoSalvaje.swim(); //Todos los patos pueden flotar
 //Pato Hule
 console.log("Pato Hule");
+var unPatoHule = new PatoHule();
 unPatoHule.display(); //Hola estoy en una tina
 unPatoHule.performFly(); //no vuela
 unPatoHule.performCuack(); //squeak
 unPatoHule.swim(); //Todos los patos pueden flotar
 //Pato Madera
 console.log("Pato Madera");
+var unPatoMadera = new PatoMadera();
 unPatoMadera.display(); //Hola soy un adorno
 unPatoMadera.performFly(); //no vuela
 unPatoMadera.performCuack(); //*silencio
