@@ -150,14 +150,14 @@ class HotelThree implements IObserver, IDisplay {
 
 //IMPLEMETACION
 
-const weatherData: WeatherData = new WeatherData;
+const weatherData: WeatherData = new WeatherData; //Nuevo objeto del tipo WeatherData
 
-const HotelOneDisplay = new HotelOne(weatherData);
-const HotelTwoDisplay = new HotelTwo(weatherData);
-const HotelThreeDisplay = new HotelThree(weatherData);
+const HotelOneDisplay = new HotelOne(weatherData); //Objeto del tipo HotelOne, pasamos weatherData al constructor
+const HotelTwoDisplay = new HotelTwo(weatherData); //Objeto del tipo HotelTwo
+const HotelThreeDisplay = new HotelThree(weatherData); //Objeto del tipo HotelThree
 
 console.log("\nFirst\n")
-weatherData.setMeasurments(33.2, 87.2, 1002);
+weatherData.setMeasurments(33.2, 87.2, 1002); //Cambio de valores del clima
 console.log("\nSecond\n")
 weatherData.setMeasurments(37.7, 76.9, 1006);
 console.log("\nThird\n")

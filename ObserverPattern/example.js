@@ -95,12 +95,12 @@ var HotelThree = /** @class */ (function () {
     return HotelThree;
 }());
 //IMPLEMETACION
-var weatherData = new WeatherData;
-var HotelOneDisplay = new HotelOne(weatherData);
-var HotelTwoDisplay = new HotelTwo(weatherData);
-var HotelThreeDisplay = new HotelThree(weatherData);
+var weatherData = new WeatherData; //Nuevo objeto del tipo WeatherData
+var HotelOneDisplay = new HotelOne(weatherData); //Objeto del tipo HotelOne, pasamos weatherData al constructor
+var HotelTwoDisplay = new HotelTwo(weatherData); //Objeto del tipo HotelTwo
+var HotelThreeDisplay = new HotelThree(weatherData); //Objeto del tipo HotelThree
 console.log("\nFirst\n");
-weatherData.setMeasurments(33.2, 87.2, 1002);
+weatherData.setMeasurments(33.2, 87.2, 1002); //Cambio de valores del clima
 console.log("\nSecond\n");
 weatherData.setMeasurments(37.7, 76.9, 1006);
 console.log("\nThird\n");
