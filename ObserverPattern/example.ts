@@ -1,95 +1,164 @@
-//OBSERVER PATTERN
+type voidFunction = () => void;
+type setMeasurmentsFunction = (temperature: number, humidity: number, pressure: number) => void
 
-type voidFunction = () => void
-
-//Definimos una interface IStation
-interface IStation{
-	add: observerVoidFunction,
-	remove: observerVoidFunction,
-	notify: voidFunction
-}
-
-//Definimos una interface IStationObserver
-interface IStationObserver{
+//Definimos la interfaz IObserver
+interface IObserver {
 	update: voidFunction
 }
 
-type observerVoidFunction = (observer: IStationObserver) => void
+//Tipo de dato que admite un IObserver como parametro y regresa un void.
+type observerFunctionVoid = (observer: IObserver) => void;
 
-//Definimos la clase EstacionSismos que implements IStation
-class EstacionSismos implements IStation{
-	observers: IStationObserver[] = []; //Aqui guardamos los observers
-	move: number = 100 //Variable de movimiento que se va a reportar
+//Definimos la interfaz ISubject
+interface ISubject{
+	registerObserver: observerFunctionVoid,
+	removeObserver: observerFunctionVoid,
+	notifyObservers: voidFunction
+}
 
-	//Funcion para agregar observers al array
-	public add: observerVoidFunction = (observer: IStationObserver) =>{
-		this.observers.push(observer)
+//Definimos la interfaz IDisplay
+interface IDisplay{
+	display: voidFunction
+}
+
+//Definimos la clase WeatherData
+class WeatherData implements ISubject {
+	private observers: Array<IObserver>; //Los observers estaran dentro de este array
+	public temperature: number; //Aqui almacenaremos la temperatura
+	public humidity: number; //Aqui almacenaremos la humedad
+	public pressure: number; //Aqui almacenaremos la presion
+
+	constructor() {
+		//incializamos observers como un array vacio
+		this.observers = [];
 	}
 
-	// Funcion par borrar observers del array
-	public remove: observerVoidFunction = (observer: IStationObserver) =>{
-		//Algo para borrar
+	public registerObserver: observerFunctionVoid = (observer: IObserver) => {
+		this.observers.push(observer) //Agregamos un observer al array
 	}
 
-	//Aqui se notifica a cada observer registrado
-	public notify: voidFunction = () => {
+	public removeObserver: observerFunctionVoid = (observer: IObserver) => {
+		let position = this.observers.indexOf(observer)
+		this.observers.splice(position, 1); //Removemos un observer del array
+	}
+
+	public notifyObservers: voidFunction = () => {
 		for( let observer of this.observers){
 			observer.update() //funcion update del observer
 		}
 	}
 
-	public getMovement: voidFunction = () => {
-		return this.move //regresa el movimiento
+	public measurementsChanged: voidFunction = () => {
+		this.notifyObservers();
+		//aqui podriamos hacer mas cosas
+	}
+
+	public setMeasurments: setMeasurmentsFunction = (temperature: number, humidity: number, pressure: number) => {
+		this.temperature = temperature;
+		this.humidity = humidity;
+		this.pressure = pressure;
+		this.measurementsChanged();
 	}
 }
 
-//Definimos una clase Phone que implementa la interface IStationObserver
-class PhoneApp implements IStationObserver{
-	station: EstacionSismos; //Variable para guardar la etacion a la que se subscribira
+class HotelOne implements IObserver, IDisplay {
+	private temperature: number; //Almacenamos la temperatura del dispositivo
+	private humidity: number; //Almacenamos la humedad del dispositivo
+	private weatherData: WeatherData; //Aqui estara la instancia a la que nos vamos a suscribir
 
-	constructor(station: EstacionSismos){
-		this.station = station; // Se subscribe a la estacion
-	}
-
-	//Funcion a la que notifica EstacionSismos
-	public update: voidFunction = () => {
-		let movement = this.station.getMovement(); //Obtiene el movimiento
-		console.log("Hola desde phoneApp", movement);
-		//
-	}
-}
-
-class LapTopApp implements IStationObserver{
-	station: EstacionSismos;
-
-	constructor(station: EstacionSismos){
-		this.station = station;
+	constructor(weatherData: WeatherData){
+		this.weatherData = weatherData; //Inicializamos weatherData
+		this.weatherData.registerObserver(this); //Aqui se realiza la suscripcion
 	}
 
 	public update: voidFunction = () => {
-		let movement = this.station.getMovement();
-		console.log("Hola desde LapTopApp", movement);
-		//
+		this.temperature = this.weatherData.temperature; //obtenemos el valor de temperatura
+		this.humidity = this.weatherData.humidity //obtenemos el valor de humedad
+		this.display() //Se muestra en la pantalla
+	}
+
+	public display: voidFunction = () => {
+		console.log(
+			"Hotel One reporta " + 
+			this.temperature +
+			"°C con " + 
+			this.humidity + 
+			"% de humedad\n"
+		);
 	}
 }
 
-//IMPLEMENTACION
-/**
-  * Creamos una nueva estacion
-  */
-let estacion = new EstacionSismos;
+class HotelTwo implements IObserver, IDisplay {
+	private temperature: number;
+	private humidity: number; 
+	private pressure: number;
+	private weatherData: WeatherData;
 
-/**
-  * Creamos tres observers que se subscribiran a la estacion
-  */
-let someApp = new PhoneApp(estacion);
-let CairoApp = new PhoneApp(estacion);
-let CristalLap = new LapTopApp(estacion);
+	constructor(weatherData: WeatherData){
+		this.weatherData = weatherData;
+		this.weatherData.registerObserver(this);
+	}
 
-estacion.add(someApp); // Hola desde PhoneApp 100
-estacion.add(CairoApp);// Hola desde PhoneApp 100
-estacion.add(CristalLap);// Hola desde LapTopApp 100
+	public update: voidFunction = () => {
+		this.temperature = this.weatherData.temperature;
+		this.humidity = this.weatherData.humidity
+		this.pressure = this.weatherData.pressure
+		this.display()
+	}
 
-estacion.notify();
+	public display: voidFunction = () => {
+		console.log(
+			"Hotel Two trae el reporte del clima. " + 
+			this.temperature +
+			"°C con " + 
+			this.humidity + 
+			"% de humedad y una persion atmosférica de " +
+			this.pressure + "mb\n"
+		);
+	}
+}
 
+class HotelThree implements IObserver, IDisplay {
+	private temperature: number;
+	private humidity: number; 
+	private pressure: number;
+	private weatherData: WeatherData;
 
+	constructor(weatherData: WeatherData){
+		this.weatherData = weatherData;
+		this.weatherData.registerObserver(this);
+	}
+
+	public update: voidFunction = () => {
+		this.temperature = this.weatherData.temperature;
+		this.humidity = this.weatherData.humidity
+		this.pressure = this.weatherData.pressure
+		this.display()
+	}
+
+	public display: voidFunction = () => {
+		console.log(
+			"Buen día le desea el HotelThree. Hoy tenemos una temperatura de" + 
+			this.temperature +
+			"°C con " + 
+			this.humidity + 
+			"% de humedad y una persion atmosférica de " +
+			this.pressure + "mb\n"
+		);
+	}
+}
+
+//IMPLEMETACION
+
+const weatherData: WeatherData = new WeatherData;
+
+const HotelOneDisplay = new HotelOne(weatherData);
+const HotelTwoDisplay = new HotelTwo(weatherData);
+const HotelThreeDisplay = new HotelThree(weatherData);
+
+console.log("\nFirst\n")
+weatherData.setMeasurments(33.2, 87.2, 1002);
+console.log("\nSecond\n")
+weatherData.setMeasurments(37.7, 76.9, 1006);
+console.log("\nThird\n")
+weatherData.setMeasurments(40, 60.5, 1008);
