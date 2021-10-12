@@ -16,10 +16,10 @@ interface IGame{
 	fastShips: Array<IShip>,
 	bigFastShips: Array<IShip>,
 	startGame: voidFunction,
-	display: IDisplay,
-	stars: IStars,
-	music: IMusic,
-	initGame: voidFunction
+	display: IDisplay, //Display class
+	stars: IStars, //Star class
+	music: IMusic, //Music class
+	initGame: voidFunction //Función para inicializar el juego
 }
 
 interface IDisplay{
@@ -92,16 +92,20 @@ interface IGameInterfaceFactory{
 	createMusic: emptyFunctionMusic
 }
 
+//Definimos la casle SingleGameInterfaceFactory para los juegos de un solo jugador
 class SingleGameInterfaceFactory implements IGameInterfaceFactory{
 	public createDisplay: emptyFunctionDisplay = () => {
+		//Implementa la interfaz de un jugador
 		return new SingleDisplay()
 	}
 
 	public createStars: emptyFunctionStars = () => {
+		//Pinta Estrellas rojas
 		return new RedStars()
 	}
 
 	public createMusic: emptyFunctionMusic = () => {
+		//Musica personalizada para juegos de un jugador
 		return new SingleMusic()
 	}
 }

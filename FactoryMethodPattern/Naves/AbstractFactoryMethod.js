@@ -55,15 +55,19 @@ var MultiplayerMusic = /** @class */ (function () {
     }
     return MultiplayerMusic;
 }());
+//Definimos la casle SingleGameInterfaceFactory para los juegos de un solo jugador
 var SingleGameInterfaceFactory = /** @class */ (function () {
     function SingleGameInterfaceFactory() {
         this.createDisplay = function () {
+            //Implementa la interfaz de un jugador
             return new SingleDisplay();
         };
         this.createStars = function () {
+            //Pinta Estrellas rojas
             return new RedStars();
         };
         this.createMusic = function () {
+            //Musica personalizada para juegos de un jugador
             return new SingleMusic();
         };
     }
