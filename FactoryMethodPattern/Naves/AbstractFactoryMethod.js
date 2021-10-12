@@ -13,6 +13,77 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var SingleDisplay = /** @class */ (function () {
+    function SingleDisplay() {
+        this.name = "SingleDisplay";
+        console.log("New ", this.name);
+    }
+    return SingleDisplay;
+}());
+var MultiplayerDisplay = /** @class */ (function () {
+    function MultiplayerDisplay() {
+        this.name = "MultiplayerDisplay";
+        console.log("New ", this.name);
+    }
+    return MultiplayerDisplay;
+}());
+var RedStars = /** @class */ (function () {
+    function RedStars() {
+        this.color = "red";
+        console.log("Stars are ", this.color);
+    }
+    return RedStars;
+}());
+var BlueStars = /** @class */ (function () {
+    function BlueStars() {
+        this.color = "blue";
+        console.log("Stars are ", this.color);
+    }
+    return BlueStars;
+}());
+var SingleMusic = /** @class */ (function () {
+    function SingleMusic() {
+        this.song = "la la lalal la la dadada parparap lala";
+        console.log(this.song);
+    }
+    return SingleMusic;
+}());
+var MultiplayerMusic = /** @class */ (function () {
+    function MultiplayerMusic() {
+        this.song = "tatata parapara taratta lala papra lalala";
+        console.log(this.song);
+    }
+    return MultiplayerMusic;
+}());
+var SingleGameInterfaceFactory = /** @class */ (function () {
+    function SingleGameInterfaceFactory() {
+        this.createDisplay = function () {
+            return new SingleDisplay();
+        };
+        this.createStars = function () {
+            return new RedStars();
+        };
+        this.createMusic = function () {
+            return new SingleMusic();
+        };
+    }
+    return SingleGameInterfaceFactory;
+}());
+var MultiplayerGameInterfaceFactory = /** @class */ (function () {
+    function MultiplayerGameInterfaceFactory() {
+        this.createDisplay = function () {
+            return new MultiplayerDisplay();
+        };
+        this.createStars = function () {
+            return new BlueStars();
+        };
+        this.createMusic = function () {
+            return new MultiplayerMusic();
+        };
+    }
+    return MultiplayerGameInterfaceFactory;
+}());
+//Creamos la clase NormalShip que implementa IShip
 var NormalShip = /** @class */ (function () {
     function NormalShip(index) {
         this.size = 10;
@@ -42,213 +113,207 @@ var FastShip = /** @class */ (function () {
 }());
 var BigFastShip = /** @class */ (function () {
     function BigFastShip(index) {
-        this.size = 20;
+        this.size = 10;
         this.speed = 20;
         this.index = index;
-        console.log("Init big fast ship", this.index);
+        console.log("Init fast ship", this.index);
     }
     return BigFastShip;
 }());
-var SingleGameShipFactory = /** @class */ (function () {
-    function SingleGameShipFactory() {
-        this.createEasy = function () {
-            var ships = {
-                normalShips: [],
-                bigShips: [],
-                fastShips: [],
-                bigFastShips: []
-            };
-            for (var n = 0; n < 10; n++) {
-                ships.normalShips.push(new NormalShip(n));
-            }
-            for (var n = 0; n < 3; n++) {
-                ships.bigShips.push(new BigShip(n));
-            }
-            return ships;
-        };
-        this.createNormal = function () {
-            var ships = {
-                normalShips: [],
-                bigShips: [],
-                fastShips: [],
-                bigFastShips: []
-            };
-            for (var n = 0; n < 13; n++) {
-                ships.normalShips.push(new NormalShip(n));
-            }
-            for (var n = 0; n < 5; n++) {
-                ships.bigShips.push(new BigShip(n));
-            }
-            return ships;
-        };
-        this.createHard = function () {
-            var ships = {
-                normalShips: [],
-                bigShips: [],
-                fastShips: [],
-                bigFastShips: []
-            };
-            for (var n = 0; n < 15; n++) {
-                ships.normalShips.push(new NormalShip(n));
-            }
-            for (var n = 0; n < 10; n++) {
-                ships.bigShips.push(new BigShip(n));
-            }
-            for (var n = 0; n < 3; n++) {
-                ships.fastShips.push(new FastShip(n));
-            }
-            return ships;
-        };
-    }
-    return SingleGameShipFactory;
-}());
-var MultiplayerGameShipFactory = /** @class */ (function () {
-    function MultiplayerGameShipFactory() {
-        this.createEasy = function () {
-            var ships = {
-                normalShips: [],
-                bigShips: [],
-                fastShips: [],
-                bigFastShips: []
-            };
-            for (var n = 0; n < 15; n++) {
-                ships.normalShips.push(new NormalShip(n));
-            }
-            for (var n = 0; n < 5; n++) {
-                ships.bigShips.push(new BigShip(n));
-            }
-            return ships;
-        };
-        this.createNormal = function () {
-            var ships = {
-                normalShips: [],
-                bigShips: [],
-                fastShips: [],
-                bigFastShips: []
-            };
-            for (var n = 0; n < 20; n++) {
-                ships.normalShips.push(new NormalShip(n));
-            }
-            for (var n = 0; n < 10; n++) {
-                ships.bigShips.push(new BigShip(n));
-            }
-            return ships;
-        };
-        this.createHard = function () {
-            var ships = {
-                normalShips: [],
-                bigShips: [],
-                fastShips: [],
-                bigFastShips: []
-            };
-            for (var n = 0; n < 25; n++) {
-                ships.normalShips.push(new NormalShip(n));
-            }
-            for (var n = 0; n < 15; n++) {
-                ships.bigShips.push(new BigShip(n));
-            }
-            for (var n = 0; n < 7; n++) {
-                ships.fastShips.push(new FastShip(n));
-            }
-            for (var n = 0; n < 3; n++) {
-                ships.bigFastShips.push(new BigFastShip(n));
-            }
-            return ships;
-        };
-    }
-    return MultiplayerGameShipFactory;
-}());
-var SingleGameInterfaceFactory = /** @class */ (function () {
-    function SingleGameInterfaceFactory() {
-        this.setInterface = function () {
-            console.log("Interfaz de un jugador");
-        };
-    }
-    return SingleGameInterfaceFactory;
-}());
-var MultiplayerGameInterfaceFactory = /** @class */ (function () {
-    function MultiplayerGameInterfaceFactory() {
-        this.setInterface = function () {
-            console.log("Interfaz multijugador");
-        };
-    }
-    return MultiplayerGameInterfaceFactory;
-}());
-var EasyGame = /** @class */ (function () {
-    function EasyGame(shipFactory, interfaceFactory, level) {
+//Creamos la clase EasySingleGame que implementa IGame
+var EasySingleGame = /** @class */ (function () {
+    function EasySingleGame(level, interfaceFactory) {
         var _this = this;
-        this.setGame = function () {
-            _this.interfaceFactory.setInterface();
-            _this.ships = _this.shipFactory.createEasy();
-        };
         this.startGame = function () {
-            console.log("Started Easy Game");
+            console.log("Started Single Easy Game");
         };
-        this.level = level;
-        this.shipFactory = shipFactory;
+        this.initGame = function () {
+            _this.display = _this.interfaceFactory.createDisplay();
+            _this.music = _this.interfaceFactory.createMusic();
+        };
         this.interfaceFactory = interfaceFactory;
+        this.level = level;
+        this.normalShips = [];
+        this.bigShips = [];
+        this.fastShips = [];
+        this.bigFastShips = [];
+        for (var n = 0; n < 10; n++) {
+            this.normalShips.push(new NormalShip(n));
+        }
+        for (var n = 0; n < 3; n++) {
+            this.bigShips.push(new BigShip(n));
+        }
     }
-    return EasyGame;
+    return EasySingleGame;
 }());
-var NormalGame = /** @class */ (function () {
-    function NormalGame(shipFactory, interfaceFactory, level) {
+var NormalSingleGame = /** @class */ (function () {
+    function NormalSingleGame(level, interfaceFactory) {
         var _this = this;
-        this.setGame = function () {
-            _this.interfaceFactory.setInterface();
-            _this.ships = _this.shipFactory.createNormal();
-        };
         this.startGame = function () {
-            console.log("Started Normal Game");
+            console.log("Started Single Normal Game");
         };
-        this.level = level;
-        this.shipFactory = shipFactory;
+        this.initGame = function () {
+            _this.display = _this.interfaceFactory.createDisplay();
+            _this.stars = _this.interfaceFactory.createStars();
+            _this.music = _this.interfaceFactory.createMusic();
+        };
         this.interfaceFactory = interfaceFactory;
+        this.level = level;
+        this.normalShips = [];
+        this.bigShips = [];
+        this.fastShips = [];
+        this.bigFastShips = [];
+        for (var n = 0; n < 13; n++) {
+            this.normalShips.push(new NormalShip(n));
+        }
+        for (var n = 0; n < 5; n++) {
+            this.bigShips.push(new BigShip(n));
+        }
     }
-    return NormalGame;
+    return NormalSingleGame;
 }());
-var HardGame = /** @class */ (function () {
-    function HardGame(shipFactory, interfaceFactory, level) {
+var HardSingleGame = /** @class */ (function () {
+    function HardSingleGame(level, interfaceFactory) {
         var _this = this;
-        this.setGame = function () {
-            _this.interfaceFactory.setInterface();
-            _this.ships = _this.shipFactory.createHard();
-        };
         this.startGame = function () {
-            console.log("Started Hard Game");
+            console.log("Started Single Hard Game");
         };
-        this.level = level;
-        this.shipFactory = shipFactory;
+        this.initGame = function () {
+            _this.display = _this.interfaceFactory.createDisplay();
+            _this.stars = _this.interfaceFactory.createStars();
+            _this.music = _this.interfaceFactory.createMusic();
+        };
         this.interfaceFactory = interfaceFactory;
+        this.level = level;
+        this.normalShips = [];
+        this.bigShips = [];
+        this.fastShips = [];
+        this.bigFastShips = [];
+        for (var n = 0; n < 15; n++) {
+            this.normalShips.push(new NormalShip(n));
+        }
+        for (var n = 0; n < 10; n++) {
+            this.bigShips.push(new BigShip(n));
+        }
+        for (var n = 0; n < 3; n++) {
+            this.fastShips.push(new FastShip(n));
+        }
     }
-    return HardGame;
+    return HardSingleGame;
 }());
+//Creamos la clase EasyMultiplayerGame que implementa IGame
+var EasyMultiplayerGame = /** @class */ (function () {
+    function EasyMultiplayerGame(level, interfaceFactory) {
+        var _this = this;
+        this.startGame = function () {
+            console.log("Started Multiplayer Easy Game");
+        };
+        this.initGame = function () {
+            _this.display = _this.interfaceFactory.createDisplay();
+            _this.music = _this.interfaceFactory.createMusic();
+        };
+        this.interfaceFactory = interfaceFactory;
+        this.level = level;
+        this.normalShips = [];
+        this.bigShips = [];
+        this.fastShips = [];
+        this.bigFastShips = [];
+        for (var n = 0; n < 15; n++) {
+            this.normalShips.push(new NormalShip(n));
+        }
+        for (var n = 0; n < 5; n++) {
+            this.bigShips.push(new BigShip(n));
+        }
+    }
+    return EasyMultiplayerGame;
+}());
+var NormalMultiplayerGame = /** @class */ (function () {
+    function NormalMultiplayerGame(level, interfaceFactory) {
+        var _this = this;
+        this.startGame = function () {
+            console.log("Started Multiplayer Normal Game");
+        };
+        this.initGame = function () {
+            _this.display = _this.interfaceFactory.createDisplay();
+            _this.stars = _this.interfaceFactory.createStars();
+            _this.music = _this.interfaceFactory.createMusic();
+        };
+        this.interfaceFactory = interfaceFactory;
+        this.level = level;
+        this.normalShips = [];
+        this.bigShips = [];
+        this.fastShips = [];
+        this.bigFastShips = [];
+        for (var n = 0; n < 20; n++) {
+            this.normalShips.push(new NormalShip(n));
+        }
+        for (var n = 0; n < 10; n++) {
+            this.bigShips.push(new BigShip(n));
+        }
+    }
+    return NormalMultiplayerGame;
+}());
+var HardMultiplayerGame = /** @class */ (function () {
+    function HardMultiplayerGame(level, interfaceFactory) {
+        var _this = this;
+        this.startGame = function () {
+            console.log("Started Multiplayer Hard Game");
+        };
+        this.initGame = function () {
+            _this.display = _this.interfaceFactory.createDisplay();
+            _this.stars = _this.interfaceFactory.createStars();
+            _this.music = _this.interfaceFactory.createMusic();
+        };
+        this.interfaceFactory = interfaceFactory;
+        this.level = level;
+        this.normalShips = [];
+        this.bigShips = [];
+        this.fastShips = [];
+        this.bigFastShips = [];
+        for (var n = 0; n < 25; n++) {
+            this.normalShips.push(new NormalShip(n));
+        }
+        for (var n = 0; n < 15; n++) {
+            this.bigShips.push(new BigShip(n));
+        }
+        for (var n = 0; n < 7; n++) {
+            this.fastShips.push(new FastShip(n));
+        }
+        for (var n = 0; n < 3; n++) {
+            this.bigFastShips.push(new BigFastShip(n));
+        }
+    }
+    return HardMultiplayerGame;
+}());
+//clase abstracta SpaceShip, define su funcion setGame para inciailizar el juego 
+//y la calse abstracta createGame para qye se implemente en las subclases
 var SpaceShip = /** @class */ (function () {
     function SpaceShip() {
         var _this = this;
         this.setGame = function (difficulty, level) {
             var Game = _this.createGame(difficulty, level);
-            Game.setGame();
+            Game.initGame();
             Game.startGame();
         };
     }
     return SpaceShip;
 }());
+//Creamos el Factory Single que hereda de SpaceShip para crear los juegos cuando es un solo jugador
 var SingleGame = /** @class */ (function (_super) {
     __extends(SingleGame, _super);
     function SingleGame() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        //su propio implementacion de createGame
         _this.createGame = function (difficulty, level) {
             var Game;
-            var shipFactory = new SingleGameShipFactory();
-            var interfaceFactory = new SingleGameInterfaceFactory();
             if (difficulty === "easy") {
-                Game = new EasyGame(shipFactory, interfaceFactory, level);
+                Game = new EasySingleGame(level, new SingleGameInterfaceFactory());
             }
             if (difficulty === "normal") {
-                Game = new NormalGame(shipFactory, interfaceFactory, level);
+                Game = new NormalSingleGame(level, new SingleGameInterfaceFactory());
             }
             if (difficulty === "hard") {
-                Game = new HardGame(shipFactory, interfaceFactory, level);
+                Game = new HardSingleGame(level, new SingleGameInterfaceFactory());
             }
             return Game;
         };
@@ -262,16 +327,14 @@ var MultiplayerGame = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.createGame = function (difficulty, level) {
             var Game;
-            var shipFactory = new MultiplayerGameShipFactory();
-            var interfaceFactory = new MultiplayerGameInterfaceFactory();
             if (difficulty === "easy") {
-                Game = new EasyGame(shipFactory, interfaceFactory, level);
+                Game = new EasyMultiplayerGame(level, new MultiplayerGameInterfaceFactory());
             }
             if (difficulty === "normal") {
-                Game = new NormalGame(shipFactory, interfaceFactory, level);
+                Game = new NormalMultiplayerGame(level, new MultiplayerGameInterfaceFactory());
             }
             if (difficulty === "hard") {
-                Game = new HardGame(shipFactory, interfaceFactory, level);
+                Game = new HardMultiplayerGame(level, new MultiplayerGameInterfaceFactory());
             }
             return Game;
         };
@@ -281,5 +344,5 @@ var MultiplayerGame = /** @class */ (function (_super) {
 }(SpaceShip));
 var singleGame = new SingleGame();
 var multiplayerGame = new MultiplayerGame();
-singleGame.setGame("hard", 1);
+singleGame.setGame("normal", 1);
 multiplayerGame.setGame("hard", 1);
